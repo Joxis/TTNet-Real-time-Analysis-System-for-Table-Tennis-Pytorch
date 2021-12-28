@@ -57,14 +57,7 @@ class TTNet_Dataset(Dataset):
         resized_imgs = []
         for img_path in img_path_list:
             in_file = open(img_path, 'rb')
-
-            print(img_path)
-            image = in_file.read()
-            print(sys.getsizeof(image))
-            image = self.jpeg_reader.decode(image, 0)
-            print(image.shape)
-
-            resized_imgs.append(cv2.resize(image, (self.w_input, self.h_input)))
+            resized_imgs.append(cv2.resize(self.jpeg_reader.decode(in_file.read(), 0), (self.w_input, self.h_input)))
             in_file.close()
         resized_imgs = np.dstack(resized_imgs)  # (128, 320, 27)
         # Adjust ball pos: full HD --> (320, 128)
