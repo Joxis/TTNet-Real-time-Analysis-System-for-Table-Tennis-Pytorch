@@ -7,7 +7,7 @@ python3 main.py \
   --saved_fn 'ttnet_1st_phase' \
   --no-val \
   --batch_size 8 \
-  --num_workers 8 \
+  --num_workers 16 \
   --lr 0.001 \
   --lr_type 'step_lr' \
   --lr_step_size 10 \
@@ -26,7 +26,7 @@ python3 main.py \
   --saved_fn 'ttnet_2nd_phase' \
   --no-val \
   --batch_size 8 \
-  --num_workers 8 \
+  --num_workers 16 \
   --lr 0.001 \
   --lr_type 'step_lr' \
   --lr_step_size 10 \
@@ -49,7 +49,7 @@ python3 main.py \
   --saved_fn 'ttnet_3rd_phase' \
   --no-val \
   --batch_size 8 \
-  --num_workers 8 \
+  --num_workers 16 \
   --lr 0.0001 \
   --lr_type 'step_lr' \
   --lr_step_size 10 \
