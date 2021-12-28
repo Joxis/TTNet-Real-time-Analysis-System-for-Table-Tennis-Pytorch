@@ -17,6 +17,7 @@ python3 main.py \
   --seg_weight 1. \
   --no_local \
   --no_event \
+  --no_seg \
   --smooth-labelling
 
 # The second phase: Freeze the segmentation and the global modules
@@ -38,7 +39,7 @@ python3 main.py \
   --local_weight 1. \
   --pretrained_path ../checkpoints/ttnet_1st_phase/ttnet_1st_phase_epoch_30.pth \
   --overwrite_global_2_local \
-  --freeze_seg \
+  --no_seg \
   --freeze_global \
   --smooth-labelling
 
@@ -60,4 +61,5 @@ python3 main.py \
   --event_weight 1. \
   --local_weight 1. \
   --pretrained_path ../checkpoints/ttnet_2nd_phase/ttnet_2nd_phase_epoch_30.pth \
+  --no_seg \
   --smooth-labelling
