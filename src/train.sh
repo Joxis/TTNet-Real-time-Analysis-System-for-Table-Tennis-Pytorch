@@ -3,7 +3,7 @@
 # The first phase: No local, no event
 
 python3 main.py \
-  --working-dir '../' \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'ttnet_1st_phase' \
   --no-val \
   --batch_size 8 \
@@ -22,7 +22,7 @@ python3 main.py \
 # The second phase: Freeze the segmentation and the global modules
 
 python3 main.py \
-  --working-dir '../' \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'ttnet_2nd_phase' \
   --no-val \
   --batch_size 8 \
@@ -45,7 +45,7 @@ python3 main.py \
 # The third phase: Finetune all modules
 
 python3 main.py \
-  --working-dir '../' \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'ttnet_3rd_phase' \
   --no-val \
   --batch_size 8 \
