@@ -59,6 +59,7 @@ class TTNet_Dataset(Dataset):
             in_file = open(img_path, 'rb')
 
             image = in_file.read()
+            print(sys.getsizeof(image))
             image = self.jpeg_reader.decode(image, 0)
             print(image.shape)
 
