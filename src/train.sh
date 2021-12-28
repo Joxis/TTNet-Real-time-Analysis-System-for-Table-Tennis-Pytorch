@@ -2,7 +2,7 @@
 
 # The first phase: No local, no event
 
-python main.py \
+python3 main.py \
   --working-dir '../' \
   --saved_fn 'ttnet_1st_phase' \
   --no-val \
@@ -21,7 +21,7 @@ python main.py \
 
 # The second phase: Freeze the segmentation and the global modules
 
-python main.py \
+python3 main.py \
   --working-dir '../' \
   --saved_fn 'ttnet_2nd_phase' \
   --no-val \
@@ -44,7 +44,7 @@ python main.py \
 
 # The third phase: Finetune all modules
 
-python main.py \
+python3 main.py \
   --working-dir '../' \
   --saved_fn 'ttnet_3rd_phase' \
   --no-val \
