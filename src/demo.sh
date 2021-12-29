@@ -5,7 +5,7 @@ python3 demo.py \
   --saved_fn 'demo' \
   --arch 'ttnet' \
   --gpu_idx 0 \
-  --num_workers 64 \
+  --num_workers 128 \
   --pretrained_path ../checkpoints/ttnet_3rd_phase/ttnet_3rd_phase_epoch_30.pth \
   --seg_thresh 0.5 \
   --event_thresh 0.5 \
