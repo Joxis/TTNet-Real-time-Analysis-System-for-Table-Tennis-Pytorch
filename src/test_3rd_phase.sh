@@ -1,7 +1,7 @@
 #!/bin/bash
 
-python test.py \
-  --working_dir '../' \
+python3 test.py \
+  --working_dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'ttnet_3rd_phase' \
   --gpu_idx 0 \
   --batch_size 1 \
