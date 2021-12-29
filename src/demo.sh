@@ -9,5 +9,6 @@ python3 demo.py \
   --seg_thresh 0.5 \
   --event_thresh 0.5 \
   --thresh_ball_pos_mask 0.05 \
-  --video_path ../dataset/test/videos/test_1.mp4 \
-  --save_demo_output
+  --video_path ../dataset/test/videos/test_1-10s.mp4 \
+  --save_demo_output \
+  --output_format 'video'
