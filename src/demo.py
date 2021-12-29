@@ -61,13 +61,13 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
-            print("ball local", pred_ball_local.shape, pred_ball_local)
-            print("ball global", pred_ball_global.shape, pred_ball_global)
+            # print("ball local", pred_ball_local.shape, pred_ball_local)
+            # print("ball global", pred_ball_global.shape, pred_ball_global)
             prediction_global, prediction_local, prediction_seg, prediction_events = post_processing(
                 pred_ball_global, pred_ball_local, pred_events, pred_seg, configs.input_size[0],
                 configs.thresh_ball_pos_mask, configs.seg_thresh, configs.event_thresh)
-            print("predication local", prediction_local)
-            print("prediction global", prediction_global)
+            # print("predication local", prediction_local)
+            # print("prediction global", prediction_global)
             prediction_ball_final = [
                 int(prediction_global[0] * w_ratio + prediction_local[0] - w_resize / 2),
                 int(prediction_global[1] * h_ratio + prediction_local[1] - h_resize / 2)
