@@ -86,7 +86,7 @@ class BallDetection(nn.Module):
         out_block3 = self.convblock3(x)
         out_block4 = self.convblock4(out_block3)
         x = self.dropout2d(out_block4)
-        out_block5 = self.convblock5(out_block4)
+        out_block5 = self.convblock5(x)
         features = self.convblock6(out_block5)
 
         x = self.dropout2d(features)
@@ -208,6 +208,8 @@ class TTNet(nn.Module):
     def run_demo(self, resize_batch_input):
         """Only for full 4 stages/modules in TTNet"""
         # Normalize the input before compute forward propagation
+        print("resize batch input", resize_batch_input.shape)
+        print("normalized resize batch input", self.__normalize__(resize_batch_input).shape)
         pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = self.ball_global_stage(
             self.__normalize__(resize_batch_input))
         input_ball_local, cropped_params = self.__crop_original_batch__(resize_batch_input, pred_ball_global)
