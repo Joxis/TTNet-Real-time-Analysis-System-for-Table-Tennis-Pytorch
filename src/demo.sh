@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python demo.py \
+python3 demo.py \
   --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'demo' \
   --arch 'ttnet' \
