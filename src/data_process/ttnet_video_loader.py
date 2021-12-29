@@ -25,7 +25,8 @@ class TTNet_Video_Loader:
         self.video_fps = int(round(self.cap.get(cv2.CAP_PROP_FPS)))
         self.video_w = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         self.video_h = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        self.video_num_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        # 15 frame margin to deal with opencv frame count mistakes
+        self.video_num_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 15
 
         self.width = input_size[0]
         self.height = input_size[1]
@@ -41,11 +42,7 @@ class TTNet_Video_Loader:
         while (self.count < self.num_frames_sequence):
             self.count += 1
             ret, frame = self.cap.read()  # BGR
-            if not ret:
-                if self.count <= self.num_frames_sequence - 10:  # 10 frame margin to cope with invalid frame counts
-                    raise ValueError('Failed to load frame {:d}'.format(self.count))
-                else:
-                    break
+            assert ret, 'Failed to load frame {:d}'.format(self.count)
             self.images_sequence.append(cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), (self.width, self.height)))
 
     def __iter__(self):
@@ -59,11 +56,7 @@ class TTNet_Video_Loader:
         # Read image
 
         ret, frame = self.cap.read()  # BGR
-        if not ret:
-            if self.count <= self.num_frames_sequence - 10:  # 10 frame margin to cope with invalid frame counts
-                raise ValueError('Failed to load frame {:d}'.format(self.count))
-            else:
-                raise StopIteration
+        assert ret, 'Failed to load frame {:d}'.format(self.count)
         self.images_sequence.append(cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), (self.width, self.height)))
         resized_imgs = np.dstack(self.images_sequence)  # (128, 320, 27)
         # Transpose (H, W, C) to (C, H, W) --> fit input of TTNet model
