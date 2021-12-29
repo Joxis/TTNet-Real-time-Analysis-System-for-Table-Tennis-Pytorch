@@ -59,7 +59,11 @@ class TTNet_Video_Loader:
         # Read image
 
         ret, frame = self.cap.read()  # BGR
-        assert ret, 'Failed to load frame {:d}'.format(self.count)
+        if not ret:
+            if self.count <= self.num_frames_sequence - 10:  # 10 frame margin to cope with invalid frame counts
+                raise ValueError('Failed to load frame {:d}'.format(self.count))
+            else:
+                raise StopIteration
         self.images_sequence.append(cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), (self.width, self.height)))
         resized_imgs = np.dstack(self.images_sequence)  # (128, 320, 27)
         # Transpose (H, W, C) to (C, H, W) --> fit input of TTNet model
