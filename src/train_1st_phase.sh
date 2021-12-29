@@ -1,11 +1,11 @@
 #!/bin/bash
 
-python main.py \
-  --working-dir '../' \
-  --saved_fn 'ttnet_1st_phase' \
+python3 main.py \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
+  --saved_fn 'ttnet_1st_phase-2' \
   --no-val \
   --batch_size 8 \
-  --num_workers 4 \
+  --num_workers 64 \
   --lr 0.001 \
   --lr_type 'step_lr' \
   --lr_step_size 10 \
@@ -15,4 +15,5 @@ python main.py \
   --seg_weight 1. \
   --no_local \
   --no_event \
-  --smooth-labelling
+  --smooth-labelling \
+  --multitask_learning
