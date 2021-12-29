@@ -1,7 +1,7 @@
 #!/bin/bash
 
 python demo.py \
-  --working-dir '../' \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
   --saved_fn 'demo' \
   --arch 'ttnet' \
   --gpu_idx 0 \
