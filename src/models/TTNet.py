@@ -211,6 +211,7 @@ class TTNet(nn.Module):
         # Normalize the input before compute forward propagation
         pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = self.ball_global_stage(
             self.__normalize__(resize_batch_input))
+        print("pred ball global stage", pred_ball_global)
         input_ball_local, cropped_params = self.__crop_original_batch__(resize_batch_input, pred_ball_global)
         # Normalize the input before compute forward propagation
         pred_ball_local, local_features, *_ = self.ball_local_stage(self.__normalize__(input_ball_local))
