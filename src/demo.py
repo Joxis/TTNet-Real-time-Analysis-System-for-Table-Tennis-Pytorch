@@ -61,6 +61,8 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
+            print("ball local", pred_ball_local)
+            print("ball global", pred_ball_global)
             prediction_global, prediction_local, prediction_seg, prediction_events = post_processing(
                 pred_ball_global, pred_ball_local, pred_events, pred_seg, configs.input_size[0],
                 configs.thresh_ball_pos_mask, configs.seg_thresh, configs.event_thresh)
