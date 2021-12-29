@@ -95,8 +95,8 @@ def demo(configs):
 
     if configs.output_format == 'video':
         output_video_path = os.path.join(configs.save_demo_dir, 'result.mp4')
-        cmd_str = 'ffmpeg -f image2 -i {}/%06d.jpg -start_number {} -b 5000k -c:v mpeg4 {}'.format(
-            os.path.join(configs.frame_dir), middle_idx + 1, output_video_path)
+        cmd_str = 'ffmpeg -f image2 -start_number {} -i {}/%06d.jpg -b 5000k -c:v mpeg4 {}'.format(
+            middle_idx + 1, os.path.join(configs.frame_dir), output_video_path)
         print(cmd_str)
         os.system(cmd_str)
 
