@@ -6,6 +6,8 @@ from models.TTNet import BallDetection
 
 def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
     """Normalize a tensor image with mean and standard deviation."""
+    mean = torch.repeat_interleave(torch.tensor(mean).view(1, 3, 1, 1), repeats=9, dim=1)
+    std = torch.repeat_interleave(torch.tensor(std).view(1, 3, 1, 1), repeats=9, dim=1)
     return (x / 255. - mean) / std
 
 
