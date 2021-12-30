@@ -40,7 +40,7 @@ def infer(model, num=10):
             print(pred_ball_pos)
             print(i, torch.sum(pred_ball_global), torch.mean(pred_ball_global))
             if last_output is not None:
-                print(torch.all(torch.eq(last_output, pred_ball_global)))
+                print(f"{torch.sum(torch.eq(last_output, pred_ball_global))} equal elements")
             last_output = pred_ball_global
 
 
