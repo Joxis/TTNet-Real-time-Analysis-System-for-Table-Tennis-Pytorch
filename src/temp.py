@@ -59,7 +59,7 @@ def main(pretrained_path):
 
     infer(model)
     print("------- with pretrained weights --------")
-    model = load_pretrained_model(model, pretrained_path, None, False)
+    model = load_pretrained_model(model, pretrained_path)
     infer(model)
 
 
