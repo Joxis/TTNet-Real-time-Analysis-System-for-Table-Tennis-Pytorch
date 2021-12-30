@@ -17,12 +17,9 @@ def load_pretrained_model(model, pretrained_path):
     pretrained_dict = checkpoint['state_dict']
     prefix = "model.ball_global_stage."
     pretrained_dict = {k.replace(prefix, ""): v for k, v in pretrained_dict.items() if k.startswith(prefix)}
-    print(pretrained_dict.keys())
 
     model_state_dict = model.state_dict()
-    print(model_state_dict.keys())
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
-    print(pretrained_dict.keys())
     model_state_dict.update(pretrained_dict)
     model.load_state_dict(model_state_dict)
 
