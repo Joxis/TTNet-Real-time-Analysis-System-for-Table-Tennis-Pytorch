@@ -1,8 +1,8 @@
 """Temp ball detection test."""
 import torch
+import numpy as np
 
 from models.TTNet import BallDetection
-from utils.post_processing import get_prediction_ball_pos
 
 
 def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
@@ -42,6 +42,19 @@ def infer(model, num=10):
             if last_output is not None:
                 print(torch.all(torch.eq(last_output, pred_ball_global)))
             last_output = pred_ball_global
+
+
+def get_prediction_ball_pos(pred_ball, w, thresh_ball_pos_prob):
+    """Get the ball position from the prediction."""
+    print(pred_ball[:10])
+    pred_ball = torch.squeeze(pred_ball).numpy()
+    print(pred_ball[:10])
+    pred_ball[pred_ball < thresh_ball_pos_prob] = 0.
+    print(pred_ball[:10])
+    prediction_ball_x = np.argmax(pred_ball[:w])
+    prediction_ball_y = np.argmax(pred_ball[w:])
+
+    return prediction_ball_x, prediction_ball_y
 
 
 def main(pretrained_path):
