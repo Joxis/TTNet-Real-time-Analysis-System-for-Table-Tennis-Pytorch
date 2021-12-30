@@ -2,6 +2,7 @@
 import torch
 
 from models.TTNet import BallDetection
+from utils.post_processing import get_prediction_ball_pos
 
 
 def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
@@ -35,6 +36,8 @@ def infer(model, num=10):
             print(f"images sum: {torch.sum(images)}")
             normalized_images = normalize(images)
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = model(normalized_images)
+            pred_ball_pos = get_prediction_ball_pos(pred_ball_global, w=320, thresh_ball_pos_prob=0.05)
+            print(pred_ball_pos)
             print(i, torch.sum(pred_ball_global), torch.mean(pred_ball_global))
             if last_output is not None:
                 print(torch.all(torch.eq(last_output, pred_ball_global)))
