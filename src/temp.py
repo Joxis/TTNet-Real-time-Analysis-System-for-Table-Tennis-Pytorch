@@ -31,6 +31,7 @@ def main(pretrained_path):
     model.eval()
 
     infer(model)
+    print("------- with pretrained weights --------")
     model = load_pretrained_model(model, pretrained_path, None, False)
     infer(model)
 
