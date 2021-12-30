@@ -2,7 +2,6 @@
 import torch
 
 from models.TTNet import BallDetection
-from models.model_utils import load_pretrained_model
 
 
 def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
@@ -10,6 +9,34 @@ def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
     mean = torch.repeat_interleave(torch.tensor(mean).view(1, 3, 1, 1), repeats=9, dim=1)
     std = torch.repeat_interleave(torch.tensor(std).view(1, 3, 1, 1), repeats=9, dim=1)
     return (x / 255. - mean) / std
+
+
+def load_pretrained_model(model, pretrained_path):
+    """Load weights from the pretrained model"""
+    checkpoint = torch.load(pretrained_path, map_location='cpu')
+    pretrained_dict = checkpoint['state_dict']
+    print(pretrained_dict.keys())
+
+    if hasattr(model, 'module'):
+        model_state_dict = model.module.state_dict()
+        # 1. filter out unnecessary keys
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
+        print("1", pretrained_dict.keys())
+        # 2. overwrite entries in the existing state dict
+        model_state_dict.update(pretrained_dict)
+        # 3. load the new state dict
+        model.module.load_state_dict(model_state_dict)
+    else:
+        model_state_dict = model.state_dict()
+        # 1. filter out unnecessary keys
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
+        print("2", pretrained_dict.keys())
+        # Load global to local stage
+        # 2. overwrite entries in the existing state dict
+        model_state_dict.update(pretrained_dict)
+        # 3. load the new state dict
+        model.load_state_dict(model_state_dict)
+    return model
 
 
 def infer(model, num=10):
