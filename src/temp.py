@@ -15,7 +15,7 @@ def load_pretrained_model(model, pretrained_path):
     """Load weights from the pretrained model"""
     checkpoint = torch.load(pretrained_path, map_location='cpu')
     pretrained_dict = checkpoint['state_dict']
-    prefix = "model.ball_global_stage"
+    prefix = "model.ball_global_stage."
     pretrained_dict = {k.replace(prefix, ""): v for k, v in pretrained_dict.items() if k.startswith(prefix)}
     print(pretrained_dict.keys())
 
