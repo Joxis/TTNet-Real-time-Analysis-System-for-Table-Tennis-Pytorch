@@ -53,7 +53,6 @@ def demo(configs):
     w_ratio = w_original / w_resize
     h_ratio = h_original / h_resize
     with torch.no_grad():
-        temp = None
         for count, resized_imgs in video_loader:
             print("resized imgs sum", np.sum(resized_imgs))
             # take the middle one
@@ -63,11 +62,9 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
-            if temp is not None:
-                print(torch.eq(temp, pred_ball_global), torch.sum(pred_ball_global))
-            temp = pred_ball_global
+            print("pred ball global sum", torch.sum(pred_ball_global))
             # print("pred ball local", pred_ball_local.shape, pred_ball_local)
-            print("pred ball global", pred_ball_global.shape, pred_ball_global)
+            # print("pred ball global", pred_ball_global.shape, pred_ball_global)
             prediction_global, prediction_local, prediction_seg, prediction_events = post_processing(
                 pred_ball_global, pred_ball_local, pred_events, pred_seg, configs.input_size[0],
                 configs.thresh_ball_pos_mask, configs.seg_thresh, configs.event_thresh)
