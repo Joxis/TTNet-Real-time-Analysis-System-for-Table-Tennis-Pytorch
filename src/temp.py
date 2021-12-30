@@ -23,7 +23,7 @@ def main(pretrained_path):
         for i in range(10):
             normalized_images = normalize(torch.randn(1, 27, 128, 320))
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = model(normalized_images)
-            print(i, torch.sum(pred_ball_global), pred_ball_global)
+            print(i, torch.sum(pred_ball_global), torch.mean(pred_ball_global))
             if last_output is not None:
                 print(torch.all(torch.eq(last_output, pred_ball_global)))
             last_output = pred_ball_global
