@@ -53,6 +53,7 @@ def demo(configs):
     w_ratio = w_original / w_resize
     h_ratio = h_original / h_resize
     with torch.no_grad():
+        temp = None
         for count, resized_imgs in video_loader:
             # take the middle one
             img = cv2.resize(resized_imgs[3 * middle_idx: 3 * (middle_idx + 1)].transpose(1, 2, 0), (w_original, h_original))
@@ -61,6 +62,9 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
+            if temp:
+                print(temp == pred_ball_global)
+            temp = pred_ball_global
             # print("pred ball local", pred_ball_local.shape, pred_ball_local)
             print("pred ball global", pred_ball_global.shape, pred_ball_global)
             prediction_global, prediction_local, prediction_seg, prediction_events = post_processing(
