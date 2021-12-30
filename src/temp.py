@@ -5,10 +5,7 @@ from models.TTNet import BallDetection
 
 
 def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
-    if not mean.is_cuda:
-        mean = mean.cuda()
-        std = std.cuda()
-
+    """Normalize a tensor image with mean and standard deviation."""
     return (x / 255. - mean) / std
 
 
