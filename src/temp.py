@@ -39,7 +39,7 @@ def infer(model, num=10):
             print(f"pred ball global: sum={torch.sum(pred_ball_global)} "
                   f"mean={torch.mean(pred_ball_global)}")
             pred_ball_pos = get_prediction_ball_pos(pred_ball_global, w=320, thresh_ball_pos_prob=0.05)
-            print(pred_ball_pos)
+            print(f"pred ball pos: {pred_ball_pos}")
             if last_output is not None:
                 print(f"{torch.sum(torch.eq(last_output, pred_ball_global))}/{pred_ball_global.numel()} equal elements")
             last_output = pred_ball_global
