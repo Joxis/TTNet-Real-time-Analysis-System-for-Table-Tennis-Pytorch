@@ -12,21 +12,27 @@ def normalize(x, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
     return (x / 255. - mean) / std
 
 
-def main(pretrained_path):
-    """Run the ball detection model."""
-    model = BallDetection(9, 0.5)
-    model.eval()
-    # model = load_pretrained_model(model, pretrained_path, None, False)
-
+def infer(model, num=10):
+    """Perform inference."""
     with torch.no_grad():
         last_output = None
-        for i in range(10):
+        for i in range(num):
             normalized_images = normalize(torch.randn(1, 27, 128, 320))
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = model(normalized_images)
             print(i, torch.sum(pred_ball_global), torch.mean(pred_ball_global))
             if last_output is not None:
                 print(torch.all(torch.eq(last_output, pred_ball_global)))
             last_output = pred_ball_global
+
+
+def main(pretrained_path):
+    """Run the ball detection model."""
+    model = BallDetection(9, 0.5)
+    model.eval()
+
+    infer(model)
+    model = load_pretrained_model(model, pretrained_path, None, False)
+    infer(model)
 
 
 if __name__ == "__main__":
