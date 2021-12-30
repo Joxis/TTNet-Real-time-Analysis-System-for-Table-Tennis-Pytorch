@@ -46,11 +46,11 @@ def infer(model, num=10):
 
 def get_prediction_ball_pos(pred_ball, w, thresh_ball_pos_prob):
     """Get the ball position from the prediction."""
-    print(pred_ball[:10])
+    print(pred_ball.shape)
     pred_ball = torch.squeeze(pred_ball).numpy()
-    print(pred_ball[:10])
+    print(pred_ball.shape, pred_ball[:10])
     pred_ball[pred_ball < thresh_ball_pos_prob] = 0.
-    print(pred_ball[:10])
+    print(pred_ball.shape, pred_ball[:10])
     prediction_ball_x = np.argmax(pred_ball[:w])
     prediction_ball_y = np.argmax(pred_ball[w:])
 
