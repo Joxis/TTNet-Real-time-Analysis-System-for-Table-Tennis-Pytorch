@@ -93,6 +93,7 @@ def load_pretrained_model(model, pretrained_path, gpu_idx, overwrite_global_2_lo
         model_state_dict = model.module.state_dict()
         # 1. filter out unnecessary keys
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
+        print(pretrained_dict.keys())
         # Load global to local stage
         if overwrite_global_2_local:
             pretrained_dict = load_weights_local_stage(pretrained_dict)
@@ -104,6 +105,7 @@ def load_pretrained_model(model, pretrained_path, gpu_idx, overwrite_global_2_lo
         model_state_dict = model.state_dict()
         # 1. filter out unnecessary keys
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
+        print(pretrained_dict.keys())
         # Load global to local stage
         if overwrite_global_2_local:
             pretrained_dict = load_weights_local_stage(pretrained_dict)
