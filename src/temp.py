@@ -46,7 +46,7 @@ def infer(model, num=10):
 
 def get_prediction_ball_pos(pred_ball, w, thresh_ball_pos_prob):
     """Get the ball position from the prediction."""
-    print(pred_ball.shape)
+    print(pred_ball.shape, pred_ball[0, :10])
     pred_ball = torch.squeeze(pred_ball).numpy()
     print(pred_ball.shape, pred_ball[:10])
     pred_ball[pred_ball < thresh_ball_pos_prob] = 0.
