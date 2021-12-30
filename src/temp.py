@@ -49,8 +49,9 @@ def get_prediction_ball_pos(pred_ball, w, thresh_ball_pos_prob):
     """Get the ball position from the prediction."""
     pred_ball = torch.squeeze(pred_ball).numpy()
     pred_ball[pred_ball < thresh_ball_pos_prob] = 0.
-    print(np.max(pred_ball), np.max(pred_ball[:w]), np.max(pred_ball[w:]), pred_ball)
+    print(np.max(pred_ball), np.max(pred_ball[:w]), np.max(pred_ball[w:]))
     print(np.argmax(pred_ball), np.argmax(pred_ball[:w]), np.argmax(pred_ball[w:]), pred_ball)
+    print(pred_ball)
     prediction_ball_x = np.argmax(pred_ball[:w])
     prediction_ball_y = np.argmax(pred_ball[w:])
 
