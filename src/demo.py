@@ -55,7 +55,7 @@ def demo(configs):
     with torch.no_grad():
         temp = None
         for count, resized_imgs in video_loader:
-            print("resized imgs sum", torch.sum(resized_imgs))
+            print("resized imgs sum", np.sum(resized_imgs))
             # take the middle one
             img = cv2.resize(resized_imgs[3 * middle_idx: 3 * (middle_idx + 1)].transpose(1, 2, 0), (w_original, h_original))
             # Expand the first dim
