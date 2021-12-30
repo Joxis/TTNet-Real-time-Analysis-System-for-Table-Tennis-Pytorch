@@ -38,6 +38,7 @@ def infer(model, num=10):
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = model(normalized_images)
             print(f"pred ball global: sum={torch.sum(pred_ball_global)} "
                   f"mean={torch.mean(pred_ball_global)}")
+            print(pred_ball_global)
             pred_ball_pos = get_prediction_ball_pos(pred_ball_global, w=320, thresh_ball_pos_prob=0.05)
             print(f"pred ball pos: {pred_ball_pos}")
             if last_output is not None:
