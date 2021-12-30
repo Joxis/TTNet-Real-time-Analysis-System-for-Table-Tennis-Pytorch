@@ -16,9 +16,10 @@ def main():
     with torch.no_grad():
         for i in range(10):
             ball_detection = BallDetection(9, 0.5)
+            ball_detection.eval()
             normalized_images = normalize(torch.randn(1, 27, 128, 320))
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = ball_detection(normalized_images)
-            print(i, pred_ball_global)
+            print(i, torch.sum(pred_ball_global), pred_ball_global)
 
 
 if __name__ == "__main__":
