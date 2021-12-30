@@ -55,6 +55,7 @@ def demo(configs):
     with torch.no_grad():
         temp = None
         for count, resized_imgs in video_loader:
+            print("resized imgs sum", torch.sum(resized_imgs))
             # take the middle one
             img = cv2.resize(resized_imgs[3 * middle_idx: 3 * (middle_idx + 1)].transpose(1, 2, 0), (w_original, h_original))
             # Expand the first dim
@@ -63,7 +64,7 @@ def demo(configs):
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
             if temp is not None:
-                print(torch.eq(temp, pred_ball_global))
+                print(torch.eq(temp, pred_ball_global), torch.sum(pred_ball_global))
             temp = pred_ball_global
             # print("pred ball local", pred_ball_local.shape, pred_ball_local)
             print("pred ball global", pred_ball_global.shape, pred_ball_global)
