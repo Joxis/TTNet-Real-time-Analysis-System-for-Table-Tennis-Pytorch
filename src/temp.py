@@ -15,27 +15,17 @@ def load_pretrained_model(model, pretrained_path):
     """Load weights from the pretrained model"""
     checkpoint = torch.load(pretrained_path, map_location='cpu')
     pretrained_dict = checkpoint['state_dict']
+    prefix = "model.ball_global_stage"
+    pretrained_dict = {k.replace(prefix, ""): v for k, v in pretrained_dict.items() if k.startswith(prefix)}
     print(pretrained_dict.keys())
 
-    if hasattr(model, 'module'):
-        model_state_dict = model.module.state_dict()
-        # 1. filter out unnecessary keys
-        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
-        print("1", pretrained_dict.keys())
-        # 2. overwrite entries in the existing state dict
-        model_state_dict.update(pretrained_dict)
-        # 3. load the new state dict
-        model.module.load_state_dict(model_state_dict)
-    else:
-        model_state_dict = model.state_dict()
-        # 1. filter out unnecessary keys
-        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
-        print("2", pretrained_dict.keys())
-        # Load global to local stage
-        # 2. overwrite entries in the existing state dict
-        model_state_dict.update(pretrained_dict)
-        # 3. load the new state dict
-        model.load_state_dict(model_state_dict)
+    model_state_dict = model.state_dict()
+    print(model_state_dict.keys())
+    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_state_dict}
+    print(pretrained_dict.keys())
+    model_state_dict.update(pretrained_dict)
+    model.load_state_dict(model_state_dict)
+
     return model
 
 
