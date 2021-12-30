@@ -89,6 +89,7 @@ def load_pretrained_model(model, pretrained_path, gpu_idx, overwrite_global_2_lo
         loc = 'cuda:{}'.format(gpu_idx)
         checkpoint = torch.load(pretrained_path, map_location=loc)
     pretrained_dict = checkpoint['state_dict']
+    print(pretrained_dict.keys())
     if hasattr(model, 'module'):
         model_state_dict = model.module.state_dict()
         # 1. filter out unnecessary keys
