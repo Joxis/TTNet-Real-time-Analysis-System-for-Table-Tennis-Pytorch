@@ -62,7 +62,7 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
-            if temp:
+            if temp is not None:
                 print(torch.eq(temp, pred_ball_global))
             temp = pred_ball_global
             # print("pred ball local", pred_ball_local.shape, pred_ball_local)
