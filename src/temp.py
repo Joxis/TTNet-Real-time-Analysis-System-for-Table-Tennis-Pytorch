@@ -32,7 +32,7 @@ def infer(model, num=10):
     with torch.no_grad():
         last_output = None
         for i in range(num):
-            images = torch.randn(1, 27, 128, 320)
+            images = torch.randint(size=(1, 27, 128, 320), low=0, high=255)
             print(f"images sum: {torch.sum(images)}")
             normalized_images = normalize(images)
             pred_ball_global, global_features, out_block2, out_block3, out_block4, out_block5 = model(normalized_images)
