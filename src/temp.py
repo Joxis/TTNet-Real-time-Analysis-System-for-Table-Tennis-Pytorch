@@ -16,7 +16,7 @@ def main(pretrained_path):
     """Run the ball detection model."""
     model = BallDetection(9, 0.5)
     model.eval()
-    model = load_pretrained_model(model, pretrained_path, None, False)
+    # model = load_pretrained_model(model, pretrained_path, None, False)
 
     with torch.no_grad():
         last_output = None
