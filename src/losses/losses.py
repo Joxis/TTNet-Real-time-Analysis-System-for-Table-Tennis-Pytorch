@@ -21,10 +21,10 @@ class Ball_Detection_Loss(nn.Module):
         #
         # return loss_ball_x + loss_ball_y
 
-        print(x_target.shape, x_pred.shape, y_target.shape, y_pred.shape)
+        # print(x_target.shape, x_pred.shape, y_target.shape, y_pred.shape)
         loss_ball = - torch.sum(x_target * torch.log(x_pred + self.epsilon), dim=-1) / self.w \
                     - torch.sum(y_target * torch.log(y_pred + self.epsilon), dim=-1) / self.h
-        print(loss_ball.shape, loss_ball)
+        # print(loss_ball.shape, loss_ball)
 
         return loss_ball
 

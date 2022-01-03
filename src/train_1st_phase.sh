@@ -15,4 +15,5 @@ python3 main.py \
   --no_seg \
   --no_local \
   --no_event \
-  --smooth-labelling
+  --smooth-labelling \
+  --multitask_learning
