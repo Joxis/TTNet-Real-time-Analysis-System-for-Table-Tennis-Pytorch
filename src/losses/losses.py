@@ -16,18 +16,18 @@ class Ball_Detection_Loss(nn.Module):
         x_target = target_ball_position[:, :self.w]
         y_target = target_ball_position[:, self.w:]
 
-        # loss_ball_x = - torch.mean(x_target * torch.log(x_pred + self.epsilon) + (1 - x_target) * torch.log(1 - x_pred + self.epsilon))
-        # loss_ball_y = - torch.mean(y_target * torch.log(y_pred + self.epsilon) + (1 - y_target) * torch.log(1 - y_pred + self.epsilon))
-        #
-        # return loss_ball_x + loss_ball_y
+        loss_ball_x = - torch.mean(x_target * torch.log(x_pred + self.epsilon) + (1 - x_target) * torch.log(1 - x_pred + self.epsilon))
+        loss_ball_y = - torch.mean(y_target * torch.log(y_pred + self.epsilon) + (1 - y_target) * torch.log(1 - y_pred + self.epsilon))
+
+        return loss_ball_x + loss_ball_y
 
         # print(x_target.shape, x_pred.shape, y_target.shape, y_pred.shape)
-        loss_ball = - torch.sum(x_target * torch.log(x_pred + self.epsilon), dim=-1) / self.w \
-                    - torch.sum(y_target * torch.log(y_pred + self.epsilon), dim=-1) / self.h
-        # print(loss_ball.shape, loss_ball)
-        loss_ball_sum = torch.sum(loss_ball)
-        print("1", loss_ball_sum)
-        return loss_ball_sum
+        # loss_ball = - torch.sum(x_target * torch.log(x_pred + self.epsilon), dim=-1) / self.w \
+        #             - torch.sum(y_target * torch.log(y_pred + self.epsilon), dim=-1) / self.h
+        # # print(loss_ball.shape, loss_ball)
+        # loss_ball_sum = torch.sum(loss_ball)
+        # print("1", loss_ball_sum)
+        # return loss_ball_sum
 
 
 class Events_Spotting_Loss(nn.Module):

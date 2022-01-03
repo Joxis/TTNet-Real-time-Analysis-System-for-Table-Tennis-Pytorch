@@ -2,7 +2,7 @@
 
 python3 main.py \
   --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
-  --saved_fn 'ttnet_1st_phase-3' \
+  --saved_fn 'ttnet_1st_phase-4' \
   --no-val \
   --batch_size 8 \
   --num_workers 64 \
