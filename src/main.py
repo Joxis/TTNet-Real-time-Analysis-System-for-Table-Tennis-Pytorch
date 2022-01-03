@@ -292,14 +292,13 @@ def evaluate_one_epoch(val_loader, model, epoch, configs, logger):
                         sample_prediction_ball_global_xy[0] > 0) and (sample_prediction_ball_global_xy[1] > 0):
                     mse = (sample_prediction_ball_global_xy[0] - sample_global_ball_pos_xy[0]) ** 2 + \
                           (sample_prediction_ball_global_xy[1] - sample_global_ball_pos_xy[1]) ** 2
-                    print("MSE update", mse)
                     mse_global.update(mse)
 
             # Log message
             if logger is not None:
                 if ((batch_idx + 1) % configs.print_freq) == 0:
                     logger.info(progress.get_message(batch_idx))
-                    print("avg mse global", mse_global.avg)
+                    print("-=-=-=-=- Avg MSE global", mse_global.avg)
 
             start_time = time.time()
 
