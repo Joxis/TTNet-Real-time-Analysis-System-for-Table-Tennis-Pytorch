@@ -22,6 +22,7 @@ from utils.train_utils import reduce_tensor, to_python_float
 from utils.misc import AverageMeter, ProgressMeter
 from utils.logger import Logger
 from config.config import parse_configs
+from utils.post_processing import get_prediction_ball_pos
 
 
 def main():
@@ -248,6 +249,8 @@ def evaluate_one_epoch(val_loader, model, epoch, configs, logger):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
+    mse_global = AverageMeter('MSE_Global', ':6.4f')
+    w, _ = configs.input_size
 
     progress = ProgressMeter(len(val_loader), [batch_time, data_time, losses],
                              prefix="Evaluate - Epoch: [{}/{}]".format(epoch, configs.num_epochs))
@@ -277,10 +280,25 @@ def evaluate_one_epoch(val_loader, model, epoch, configs, logger):
             torch.cuda.synchronize()
             batch_time.update(time.time() - start_time)
 
+            for sample_idx in range(batch_size):
+                sample_global_ball_pos_xy = global_ball_pos_xy[sample_idx]  # Target
+                # Process the global stage
+                sample_pred_ball_global = pred_ball_global[sample_idx]
+                sample_prediction_ball_global_xy = get_prediction_ball_pos(sample_pred_ball_global, w,
+                                                                           configs.thresh_ball_pos_mask)
+
+                # Calculate the MSE
+                if (sample_global_ball_pos_xy[0] > 0) and (sample_global_ball_pos_xy[1] > 0) and (
+                        sample_prediction_ball_global_xy[0] > 0) and (sample_prediction_ball_global_xy[1] > 0):
+                    mse = (sample_prediction_ball_global_xy[0] - sample_global_ball_pos_xy[0]) ** 2 + \
+                          (sample_prediction_ball_global_xy[1] - sample_global_ball_pos_xy[1]) ** 2
+                    mse_global.update(mse)
+
             # Log message
             if logger is not None:
                 if ((batch_idx + 1) % configs.print_freq) == 0:
                     logger.info(progress.get_message(batch_idx))
+                    print("avg mse global", mse_global.avg)
 
             start_time = time.time()
 
