@@ -25,8 +25,9 @@ class Ball_Detection_Loss(nn.Module):
         loss_ball = - torch.sum(x_target * torch.log(x_pred + self.epsilon), dim=-1) / self.w \
                     - torch.sum(y_target * torch.log(y_pred + self.epsilon), dim=-1) / self.h
         # print(loss_ball.shape, loss_ball)
-
-        return torch.sum(loss_ball)
+        loss_ball_sum = torch.sum(loss_ball)
+        print("1", loss_ball_sum)
+        return loss_ball_sum
 
 
 class Events_Spotting_Loss(nn.Module):
