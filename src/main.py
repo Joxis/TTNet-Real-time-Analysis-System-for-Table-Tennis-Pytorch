@@ -215,6 +215,7 @@ def train_one_epoch(train_loader, model, optimizer, epoch, configs, logger):
         resized_imgs = resized_imgs.to(configs.device, non_blocking=True).float()
         pred_ball_global, pred_ball_local, pred_events, pred_seg, local_ball_pos_xy, total_loss, _ = model(
             resized_imgs, org_ball_pos_xy, global_ball_pos_xy, target_events, target_seg)
+        print("2", total_loss)
         # For torch.nn.DataParallel case
         if (not configs.distributed) and (configs.gpu_idx is None):
             total_loss = torch.mean(total_loss)
