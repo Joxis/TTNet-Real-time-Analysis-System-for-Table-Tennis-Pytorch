@@ -286,14 +286,13 @@ def evaluate_one_epoch(val_loader, model, epoch, configs, logger):
                 sample_pred_ball_global = pred_ball_global[sample_idx]
                 sample_prediction_ball_global_xy = get_prediction_ball_pos(sample_pred_ball_global, w,
                                                                            configs.thresh_ball_pos_mask)
-                print(sample_prediction_ball_global_xy)
 
                 # Calculate the MSE
                 if (sample_global_ball_pos_xy[0] > 0) and (sample_global_ball_pos_xy[1] > 0) and (
                         sample_prediction_ball_global_xy[0] > 0) and (sample_prediction_ball_global_xy[1] > 0):
                     mse = (sample_prediction_ball_global_xy[0] - sample_global_ball_pos_xy[0]) ** 2 + \
                           (sample_prediction_ball_global_xy[1] - sample_global_ball_pos_xy[1]) ** 2
-                    print(mse)
+                    print("MSE update", mse)
                     mse_global.update(mse)
 
             # Log message
