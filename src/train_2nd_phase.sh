@@ -1,14 +1,14 @@
 #!/bin/bash
 
-python main.py \
-  --working-dir '../' \
-  --saved_fn 'ttnet_2nd_phase' \
+python3 main.py \
+  --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
+  --saved_fn 'ttnet_phase2' \
   --no-val \
   --batch_size 8 \
-  --num_workers 4 \
-  --lr 0.001 \
+  --num_workers 64 \
+  --lr 0.0001 \
   --lr_type 'step_lr' \
-  --lr_step_size 10 \
+  --lr_step_size 5 \
   --lr_factor 0.1 \
   --gpu_idx 0 \
   --global_weight 0. \
