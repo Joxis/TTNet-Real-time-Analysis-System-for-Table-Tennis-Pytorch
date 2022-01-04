@@ -2,7 +2,7 @@
 
 python3 demo.py \
   --working-dir '/home/jules/TTNet-Real-time-Analysis-System-for-Table-Tennis-Pytorch' \
-  --saved_fn 'demo' \
+  --saved_fn 'demo2' \
   --arch 'ttnet' \
   --gpu_idx 0 \
   --pretrained_path ../checkpoints/ttnet_phase3/ttnet_phase3_epoch_30.pth \
