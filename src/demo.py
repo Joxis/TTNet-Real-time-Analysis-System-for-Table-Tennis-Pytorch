@@ -54,7 +54,6 @@ def demo(configs):
     h_ratio = h_original / h_resize
     with torch.no_grad():
         for count, resized_imgs in video_loader:
-            print("resized imgs sum", np.sum(resized_imgs))
             # take the middle one
             img = cv2.resize(resized_imgs[3 * middle_idx: 3 * (middle_idx + 1)].transpose(1, 2, 0), (w_original, h_original))
             # Expand the first dim
@@ -62,19 +61,13 @@ def demo(configs):
             t1 = time_synchronized()
             pred_ball_global, pred_ball_local, pred_events, pred_seg = model.run_demo(resized_imgs)
             t2 = time_synchronized()
-            print("pred ball global sum", torch.sum(pred_ball_global))
-            # print("pred ball local", pred_ball_local.shape, pred_ball_local)
-            # print("pred ball global", pred_ball_global.shape, pred_ball_global)
             prediction_global, prediction_local, prediction_seg, prediction_events = post_processing(
                 pred_ball_global, pred_ball_local, pred_events, pred_seg, configs.input_size[0],
                 configs.thresh_ball_pos_mask, configs.seg_thresh, configs.event_thresh)
-            # print("predication local", prediction_local)
-            print("prediction global", prediction_global)
             prediction_ball_final = [
                 int(prediction_global[0] * w_ratio + prediction_local[0] - w_resize / 2),
                 int(prediction_global[1] * h_ratio + prediction_local[1] - h_resize / 2)
             ]
-            print("prediction ball final", prediction_ball_final)
 
             # Get infor of the (middle_idx + 1)th frame
             if len(queue_frames) == middle_idx + 1:
