@@ -15,7 +15,7 @@ python3 main.py \
   --seg_weight 0. \
   --event_weight 2. \
   --local_weight 1. \
-  --pretrained_path ../checkpoints/ttnet_1st_phase/ttnet_phase1_epoch_30.pth \
+  --pretrained_path ../checkpoints/ttnet_phase1/ttnet_phase1_epoch_30.pth \
   --overwrite_global_2_local \
   --freeze_seg \
   --freeze_global \
